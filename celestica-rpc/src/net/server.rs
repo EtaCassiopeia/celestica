@@ -17,6 +17,7 @@ use crate::{Status, SCRATCH_SPACE};
 /// Starts the RPC server.
 ///
 /// This takes a binding socket address and server state.
+#[cfg(not(feature = "gmf"))]
 pub(crate) async fn start_rpc_server(
     bind_addr: SocketAddr,
     state: ServerState,
@@ -62,6 +63,18 @@ pub(crate) async fn start_rpc_server(
     let _ = waiter.await;
 
     Ok(handle)
+}
+
+/// Starts the RPC server.
+///
+/// This takes a binding socket address and server state.
+/// Under the hood, this uses the `gmf` crate to handle the HTTP/2 connections.
+#[cfg(feature = "gmf")]
+pub(crate) async fn start_rpc_server(
+    bind_addr: SocketAddr,
+    state: ServerState,
+) -> io::Result<JoinHandle<()>> {
+    unimplemented!("TODO: Implement start_rpc_server")
 }
 
 /// A single connection handler.

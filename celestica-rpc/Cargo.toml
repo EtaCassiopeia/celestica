@@ -29,6 +29,9 @@ tokio = { version = "1", default-features = false, features = ["rt"] }
 turmoil = { version = "0.4.0", optional = true }
 async-stream = { version = "0.3.3", optional = true }
 
+# Used with gmf feature
+glommio = {versino = "0.8.0", optional = true}
+
 [dev-dependencies]
 tokio = { version = "1", features = ["full"] }
 test-helper = { path = "../test-helper" }
@@ -38,3 +41,5 @@ test-utils = []
 
 # Enable turmoil simulation for testing.
 simulation = ["turmoil", "async-stream"]
+gmf = ["glommio", "async-stream"]
+
