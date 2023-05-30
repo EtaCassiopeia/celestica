@@ -20,6 +20,8 @@ members = [
     "celestica-node",
     "celestica-rpc",
     "celestica-storage",
+    "celestica-eventual-consistency",
+    "celestica-crdt",
 
     # Utils
     "test-helper",
