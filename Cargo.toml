@@ -13,6 +13,7 @@ readme = "README.md"
 
 [dependencies]
 anyhow = "1.0.71"
+lance = "0.4.17"
 tokio = "1.28.2"
 
 [workspace]
@@ -22,6 +23,7 @@ members = [
     "celestica-storage",
     "celestica-eventual-consistency",
     "celestica-crdt",
+    "celestica-arrow",
 
     # Utils
     "test-helper",
