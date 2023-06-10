@@ -24,6 +24,7 @@ members = [
     "celestica-eventual-consistency",
     "celestica-crdt",
     "celestica-arrow",
+    "celestica-cluster",
 
     # Utils
     "test-helper",

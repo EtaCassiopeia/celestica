@@ -1,0 +1,51 @@
+[package]
+name = "celestica-cluster"
+version = "0.1.0"
+edition = "2021"
+description = "A distributed vector similarity vector database cluster"
+license = "MIT"
+keywords = ["databases", "distributed"]
+categories = ["concurrency", "data-structures"]
+repository = "https://github.com/EtaCassiopeia/celestica"
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1"
+async-trait = "0.1.59"
+futures = "0.3.25"
+flume = "0.10.14"
+thiserror = "1"
+axum = "0.6.1"
+num_cpus = "1.14.0"
+crc32fast = "1.3.2"
+tracing = "0.1.37"
+tracing-subscriber = "0.3.16"
+serde_json = "1.0.89"
+
+serde = { version = "1", features = ["derive"] }
+clap = { version = "4", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+
+celestica-node = { version = "0.1.0", path = "../celestica-node" }
+celestica-eventual-consistency = { version = "0.1.0", path = "../celestica-eventual-consistency", features = ["test-utils"] }
+
+#[dev-dependencies]
+#uuid = { version = "1", features = ["v4"] }
+#tokio = { version = "1", default-features = false, features = ["rt"] }
+#
+#celestica-crdt = { version = "0.1.0", path = "../celestica-crdt" }
+#celestica-eventual-consistency = { version = "0.1.0", path = "../celestica-eventual-consistency" }
+#axum = "0.6.18"
+
+[features]
+
+[dev-dependencies]
+tracing = "0.1.37"
+tracing-subscriber = "0.3.16"
+tokio = { version = "1", default-features = false, features = ["rt"] }
+
+test-helper = { path = "../test-helper" }
+uuid = { version = "1", features = ["v4"] }
+
