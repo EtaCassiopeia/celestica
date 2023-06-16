@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package celestica.pbdata.v1;
+
+message DatabaseBatch {
+    // The destination database name / namespace for this write.
+    reserved "database_name";
+    reserved 1;
+
+    // The catalog ID for this database / namespace.
+    int64 database_id = 4;
+
+    // An optional partition key for this batch.
+    //
+    // If specified, all batches in this write MUST map to this partition key.
+    string partition_key = 3;
+
+    // Table data. Data for a given table may appear in multiple table batches.
+    repeated TableBatch table_batches = 2;
+}
+
+message TableBatch {
+    // Was the table name for this data.
+    reserved "table_name";
+    reserved 1;
+
+    // The catalog ID for this table.
+    int64 table_id = 4;
+
+    // Data are represented here as serialized Arrow RecordBatches.
+    repeated bytes record_batch = 2;
+
+    // The number of rows in each record batch.
+    uint32 row_count = 3;
+}

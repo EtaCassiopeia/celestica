@@ -1,0 +1,30 @@
+syntax = "proto3";
+package celestica.table.v1;
+
+service TableService {
+  // Create a table in a namespace
+  rpc CreateTable(CreateTableRequest) returns (CreateTableResponse);
+}
+
+message CreateTableRequest {
+  // Name of the table to be created
+  string name = 1;
+
+  // Name of the namespace to create the table in
+  string namespace = 2;
+}
+
+message CreateTableResponse {
+  Table table = 1;
+}
+
+message Table {
+  // Table ID
+  int64 id = 1;
+
+  // Name of the Table
+  string name = 2;
+
+  // Namespace ID
+  int64 namespace_id = 3;
+}

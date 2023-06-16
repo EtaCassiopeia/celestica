@@ -6,14 +6,14 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-arrow-array = "37.0"
-arrow-data = "37.0"
-arrow-schema = "37.0"
-object_store = "0.5.6"
+arrow-array = { workspace = true }
+arrow-data = { workspace = true }
+arrow-schema = { workspace = true }
+object_store = { workspace = true }
 
-datafusion = "23.0.0"
-datafusion-cli = "23.0.0"
-datafusion-proto = "23.0.0"
+datafusion = { workspace = true }
+datafusion-cli = { workspace = true }
+datafusion-proto = { workspace = true }
 
 async-trait = "0.1.68"
 
@@ -22,12 +22,12 @@ configure_me_codegen = { version = "0.4.4" }
 
 log = "^0.4"
 
-#tokio = { version = "1.23", features = ["rt-multi-thread"] }
 tokio = { version = "1.23", features = ["full"] }
-#lance = { git = "https://github.com/lancedb/lance", branch = "main", path = "rust/vectordb" }
 lancedb = { git = "https://github.com/lancedb/lancedb", branch = "main", package = "vectordb" }
-lance = "0.4.17"
+lance = "0.5.7"
 futures = "0.3"
+async-lock = "2.7.0"
+static_assertions = "1.1.0"
 
 [dev-dependencies]
 tempfile = "3.5.0"

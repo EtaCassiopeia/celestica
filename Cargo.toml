@@ -11,10 +11,34 @@ readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
+[workspace.package]
+version = "0.1.0"
+authors = ["Mohsen Zainalpour <zainalpour@gmail.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
 anyhow = "1.0.71"
-lance = "0.4.17"
 tokio = "1.28.2"
+
+arrow = { version = "42.0" }
+arrow-flight = { version = "42.0" }
+arrow-array = { version = "42.0" }
+arrow-data = { version = "42.0" }
+arrow-schema = { version = "42.0" }
+
+datafusion = "27.0.0"
+datafusion-proto = "27.0.0"
+datafusion-cli = "27.0.0"
+
+hashbrown = { version = "0.14.0" }
+#object_store =  "0.5.6"
+object_store =  "0.6.1"
+parquet = { version = "41.0.0" }
+tonic = { version = "0.9.2", features = ["tls", "tls-webpki-roots"] }
+tonic-build = { version = "0.9.2" }
+tonic-health = { version = "0.9.2" }
+tonic-reflection = { version = "0.9.2" }
 
 [workspace]
 members = [
@@ -25,6 +49,8 @@ members = [
     "celestica-crdt",
     "celestica-arrow",
     "celestica-cluster",
+    "celestica-cli",
+    "generated-types",
 
     # Utils
     "test-helper",

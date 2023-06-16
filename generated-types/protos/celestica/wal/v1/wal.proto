@@ -1,0 +1,19 @@
+syntax = "proto3";
+package celestica.wal.v1;
+
+import "celestica/pbdata/v1/celestica_pb_data_protocol.proto";
+
+// WAL operation with a sequence number, used to inform read buffers when to evict data
+message SequencedWalOp {
+  uint64 sequence_number = 1;
+
+  oneof op {
+    celestica.pbdata.v1.DatabaseBatch write = 2;
+  }
+}
+
+// Collection of WAL operations (they get batched into a single write into the WAL)
+message WalOpBatch {
+  // the ops
+  repeated SequencedWalOp ops = 1;
+}

@@ -1,0 +1,67 @@
+syntax = "proto3";
+package celestica.querier.v1;
+
+/*
+ * Message definition for the native CelesDB Flight API
+ *
+ * ReadInfo is sent to an CelesDB server's `DoGet` RPC
+ * method as the opaque "Ticket" in Arrow Flight messages.
+ *
+ * Tickets are created by encoding these messages using the protobuf
+ * binary format.
+ *
+ * CelesDB clients can construct these Tickets directly to avoid making
+ * two RPC requests as typically required by Arrow Flight (a
+ * `GetFlightInfo` followed by a `DoGet`).
+ */
+message ReadInfo {
+  // Database name
+  // This used to be namespace_name
+  string database = 1;
+
+  // Query text
+  string sql_query = 2;
+
+  // A FlightSQL command payload (serialized protobuf bytes). One of
+  // the messages defined in the [protobuf definition].
+  //
+  // [protobuf definition]: https://arrow.apache.org/docs/format/FlightSql.html#protocol-buffer-definitions
+  bytes flightsql_command = 4;
+
+  // The type of query
+  QueryType query_type = 3;
+
+  enum QueryType {
+    // An unspecified query type. IOx may choose how to interpret sql_query.
+    QUERY_TYPE_UNSPECIFIED = 0;
+
+    // SQL query. `sql_query` contains a SQL query as text
+    QUERY_TYPE_SQL = 1;
+
+    // CelsQL query. `sql_query` contains an CelesQL query as text
+    QUERY_TYPE_CELES_QL = 2;
+
+    // FlightSQL message: `sql_query` is empty, flightsql_command
+    // contains a serialized FlightSQL message.
+    QUERY_TYPE_FLIGHT_SQL_MESSAGE = 3;
+  }
+
+  // Do we present debug information to the user?
+  //
+  // Debug information are mostly features that are helpful to IOx developers but a unhelpful or even confusing to end
+  // users. One example are process-local query logs, which in most deployment scenarios will be inconsistent from a
+  // user PoV due to the routing layer that sits in front of the queriers.
+  //
+  // Note that debug information MUST NOT include security-relevant information. E.g. the process-local query log
+  // mentioned above MUST be namespace-scoped! So even a user hand-crafsts the `ReadInfo` message, they do NOT gain
+  // relevant information. The worst case is that their user experience will be suboptimal.
+  bool is_debug = 5;
+}
+
+// Message included in the DoGet response from the querier
+//
+// Currently this does not contain any information, but IOx may
+// provide data lineage information, statistics, watermarks or other
+// information in the future.
+message AppMetadata {}
+

@@ -29,15 +29,11 @@ clap = { version = "4", features = ["derive"] }
 tokio = { version = "1", features = ["full"] }
 
 celestica-node = { version = "0.1.0", path = "../celestica-node" }
+generated-types = { version = "0.1.0", path = "../generated-types" }
 celestica-eventual-consistency = { version = "0.1.0", path = "../celestica-eventual-consistency", features = ["test-utils"] }
-
-#[dev-dependencies]
-#uuid = { version = "1", features = ["v4"] }
-#tokio = { version = "1", default-features = false, features = ["rt"] }
-#
-#celestica-crdt = { version = "0.1.0", path = "../celestica-crdt" }
-#celestica-eventual-consistency = { version = "0.1.0", path = "../celestica-eventual-consistency" }
-#axum = "0.6.18"
+arrow-flight = { workspace = true }
+tonic.workspace = true
+tonic-reflection.workspace = true
 
 [features]
 

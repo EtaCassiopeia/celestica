@@ -1,0 +1,101 @@
+#V2
+insert into lance_test (id, name) values(2, 'Artin');
+insert into lance_test (id, name) values(3, 'Artin');
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+\\d
+\\q
+CREATE EXTERNAL TABLE lance_test (\n    id  INT NOT NULL,\n    name  VARCHAR NOT NULL,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\nCREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+drop table lance_test;
+\nCREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+select * from lance_test;
+select * from lance_test where id <10;
+select * from lance_test where id =1;
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+\nCREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from test_lance;
+select count(*) from lance_test;
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+\nCREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\ض
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+select count(*) from lance_test;
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+\\q
+CREATE EXTERNAL TABLE lance_test (\nid  INT,\nname  VARCHAR,\n)\nSTORED AS LANCE\nLOCATION '/tmp/df';
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+insert into lance_test (id, name) values(1, 'Mohsen');
+select count(*) from lance_test;
+\\q

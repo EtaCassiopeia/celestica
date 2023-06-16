@@ -7,12 +7,12 @@ use anyhow::Result;
 use axum::body::Bytes;
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
-use axum::routing::get;
-use axum::{Json, Router};
+use axum::Json;
 use celestica_eventual_consistency::test_utils::MemStore;
 use celestica_eventual_consistency::{
     EventuallyConsistentStoreExtension,
     ReplicatedStoreHandle,
+    Storage,
 };
 use celestica_node::{
     CelesticaNodeBuilder,
@@ -21,7 +21,96 @@ use celestica_node::{
     DCAwareSelector,
 };
 use clap::Parser;
+use generated_types::celestica::namespace::v1::namespace_service_server::{
+    NamespaceService,
+    NamespaceServiceServer,
+};
+use generated_types::celestica::namespace::v1::{
+    CreateNamespaceRequest,
+    CreateNamespaceResponse,
+    DeleteNamespaceRequest,
+    DeleteNamespaceResponse,
+    GetNamespacesRequest,
+    GetNamespacesResponse,
+    Namespace,
+};
+use generated_types::FILE_DESCRIPTOR_SET;
 use serde_json::json;
+use tonic::transport::Server as TonicServer;
+use tonic::{Request, Response, Status};
+
+// #[derive(Default)]
+struct MyNamespaceService<S>
+where
+    S: Storage,
+{
+    inner_state: ReplicatedStoreHandle<S>,
+}
+
+impl<S> MyNamespaceService<S>
+where
+    S: Storage,
+{
+    pub fn new(inner_state: ReplicatedStoreHandle<S>) -> Self {
+        Self { inner_state }
+    }
+
+    pub fn inner_state(&self) -> &ReplicatedStoreHandle<S> {
+        &self.inner_state
+    }
+}
+
+#[tonic::async_trait]
+impl<S> NamespaceService for MyNamespaceService<S>
+where
+    S: Storage,
+{
+    async fn get_namespaces(
+        &self,
+        request: Request<GetNamespacesRequest>,
+    ) -> std::result::Result<Response<GetNamespacesResponse>, Status> {
+        info!("get_namespaces: {:?}", request);
+
+        let namespace = Namespace {
+            id: 1,
+            name: "default".to_string(),
+        };
+
+        let response = GetNamespacesResponse {
+            namespaces: vec![namespace],
+        };
+
+        Ok(Response::new(response))
+    }
+
+    async fn create_namespace(
+        &self,
+        request: Request<CreateNamespaceRequest>,
+    ) -> std::result::Result<Response<CreateNamespaceResponse>, Status> {
+        info!("create_namespace: {:?}", request);
+
+        let namespace = Namespace {
+            id: 1,
+            name: "default".to_string(),
+        };
+
+        let response = CreateNamespaceResponse {
+            namespace: Some(namespace),
+        };
+
+        Ok(Response::new(response))
+    }
+
+    async fn delete_namespace(
+        &self,
+        request: Request<DeleteNamespaceRequest>,
+    ) -> std::result::Result<Response<DeleteNamespaceResponse>, Status> {
+        info!("delete_namespace: {:?}", request);
+        let response = DeleteNamespaceResponse {};
+
+        Ok(Response::new(response))
+    }
+}
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -46,14 +135,19 @@ async fn main() -> anyhow::Result<()> {
 
     let handle = store.handle();
 
-    let app = Router::new()
-        .route("/:keyspace/:key", get(get_value).post(set_value))
-        .with_state(handle);
+    let namespace_server = MyNamespaceService::new(handle);
 
-    info!("listening on {}", args.rest_listen_addr);
-    let _ = axum::Server::bind(&args.rest_listen_addr)
-        .serve(app.into_make_service())
-        .await;
+    let reflection_server = tonic_reflection::server::Builder::configure()
+        .register_encoded_file_descriptor_set(FILE_DESCRIPTOR_SET)
+        .build()?;
+
+    info!("NamespaceService listening on {}", args.grpc_listen_addr);
+
+    TonicServer::builder()
+        .add_service(NamespaceServiceServer::new(namespace_server))
+        .add_service(reflection_server)
+        .serve(args.grpc_listen_addr)
+        .await?;
 
     node.shutdown().await;
 
@@ -73,11 +167,11 @@ pub struct Args {
     /// This is used to kick start the auto-discovery of nodes within the cluster.
     seeds: Vec<String>,
 
-    #[arg(long, default_value = "127.0.0.1:8000")]
-    /// The address for the REST server to listen on.
+    #[arg(long, default_value = "127.0.0.1:9000")]
+    /// The address for the GRPC server to listen on.
     ///
     /// This is what will serve the API.
-    rest_listen_addr: SocketAddr,
+    grpc_listen_addr: SocketAddr,
 
     #[arg(long, default_value = "127.0.0.1:8001")]
     /// The address for the cluster RPC system to listen on.
