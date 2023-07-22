@@ -118,7 +118,7 @@ impl Flushable for TableFlusher {
         let buffer = RecordBatchIterator::new(batches.into_iter().map(Ok), schema);
 
         // Open the table, or create it if it doesn't exist.
-        match Table::open(&self.base_url, &self.table).await {
+        match Table::open(&self.base_url).await {
             Ok(mut table) => {
                 info!("Flushing batches to the existing table");
                 println!("Flushing batches to the existing table");
@@ -660,7 +660,7 @@ mod tests {
 
         while retries > 0 {
             println!("Trying to open table: {} at {}", table_name, uri);
-            match Table::open(uri, &table_name).await {
+            match Table::open(uri).await {
                 Ok(table) => {
                     let written_rows = table.count_rows().await.unwrap();
                     assert_eq!(written_rows, 15, "Expected to write 15 rows");
